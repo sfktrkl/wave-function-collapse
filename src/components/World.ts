@@ -15,6 +15,15 @@ class World {
     }
   }
 
+  public *forEachTile() {
+    for (let y = 0; y < this.sizeY; y++) {
+      for (let x = 0; x < this.sizeX; x++) {
+        const tile = this.tileRows[y][x];
+        yield { tile, x, y };
+      }
+    }
+  }
+
   getEntropy(x: number, y: number): number {
     return this.tileRows[y][x].entropy;
   }

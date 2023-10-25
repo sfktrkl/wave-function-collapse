@@ -14,17 +14,15 @@ class Drawer {
   private drawEntropy() {
     if (!this.ctx) return;
     this.ctx.font = `${FONT_SIZE}px Arial`;
-    for (let y = 0; y < this.world.sizeY; y++) {
+    for (const { x, y } of this.world.forEachTile()) {
       const destY = y * TILE_SIZE;
-      for (let x = 0; x < this.world.sizeX; x++) {
-        const destX = x * TILE_SIZE;
-        this.ctx.clearRect(destX, destY, TILE_SIZE, TILE_SIZE);
-        this.ctx.fillText(
-          this.world.getEntropy(x, y).toString(),
-          x * TILE_SIZE,
-          y * TILE_SIZE + FONT_SIZE
-        );
-      }
+      const destX = x * TILE_SIZE;
+      this.ctx.clearRect(destX, destY, TILE_SIZE, TILE_SIZE);
+      this.ctx.fillText(
+        this.world.getEntropy(x, y).toString(),
+        x * TILE_SIZE,
+        y * TILE_SIZE + FONT_SIZE
+      );
     }
   }
 
