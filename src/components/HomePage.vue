@@ -23,6 +23,11 @@ export default defineComponent({
       this.$refs.world as HTMLCanvasElement
     );
     this.drawer.update();
+
+    const iterationInterval = setInterval(() => {
+      if (!this.world.waveFunctionCollapse()) clearInterval(iterationInterval);
+      if (this.drawer) this.drawer.update();
+    }, 0);
   },
 });
 </script>

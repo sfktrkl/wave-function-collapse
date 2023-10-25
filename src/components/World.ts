@@ -1,4 +1,5 @@
 import { Direction } from "./Directions";
+import { TILE_RULES } from "./Config";
 import { Tile } from "./Tile";
 
 class World {
@@ -36,6 +37,49 @@ class World {
 
   getEntropy(x: number, y: number): number {
     return this.tileRows[y][x].entropy;
+  }
+
+  getTilesWithMinimumEntropy(): Tile[] {
+    const tileList: Tile[] = [];
+    let minimum = Object.keys(TILE_RULES).length;
+    for (const { tile } of this.forEachTile()) {
+      if (tile.entropy > 0) {
+        if (tile.entropy < minimum) {
+          tileList.length = 0;
+          minimum = tile.entropy;
+        }
+        if (tile.entropy == minimum) tileList.push(tile);
+      }
+    }
+
+    return tileList;
+  }
+
+  waveFunctionCollapse(): boolean {
+    const tiles = this.getTilesWithMinimumEntropy();
+    if (tiles.length == 0) return false;
+
+    const tile = tiles[Math.floor(Math.random() * tiles.length)];
+    const stack: Tile[] = [tile];
+    tile.collapse();
+
+    while (stack.length > 0) {
+      const tile = stack.pop();
+      if (!tile) break;
+
+      for (const direction of tile.getDirections()) {
+        const neighbour = tile.getNeighbour(direction);
+        if (neighbour.entropy != 0) {
+          const reduced = neighbour.constrain(
+            tile.getPossibilities(),
+            direction
+          );
+          if (reduced) stack.push(neighbour);
+        }
+      }
+    }
+
+    return true;
   }
 }
 
