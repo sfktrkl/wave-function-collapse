@@ -73,3 +73,25 @@ export const TILE_WEIGHTS: Record<number, number> = {
   [TILE_C_SW]: 2,
   [TILE_C_NW]: 2,
 };
+
+export const TILE_SPRITES: Record<number, [number, number]> = {
+  [TILE_A]: [32, 32],
+  [TILE_B]: [32, 128],
+  [TILE_B_N]: [32, 96],
+  [TILE_B_E]: [64, 128],
+  [TILE_B_S]: [32, 160],
+  [TILE_B_W]: [0, 128],
+  [TILE_B_NE]: [64, 96],
+  [TILE_B_SE]: [64, 160],
+  [TILE_B_SW]: [0, 160],
+  [TILE_B_NW]: [0, 96],
+  [TILE_C]: [128, 128],
+  [TILE_C_N]: [128, 96],
+  [TILE_C_E]: [160, 128],
+  [TILE_C_S]: [128, 160],
+  [TILE_C_W]: [96, 128],
+  [TILE_C_NE]: [160, 96],
+  [TILE_C_SE]: [160, 160],
+  [TILE_C_SW]: [96, 160],
+  [TILE_C_NW]: [96, 96],
+};

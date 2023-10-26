@@ -39,6 +39,18 @@ class World {
     return this.tileRows[y][x].entropy;
   }
 
+  getType(x: number, y: number): number {
+    return this.tileRows[y][x].getPossibilities()[0];
+  }
+
+  getMinimumEntropy(): number {
+    let minimum = Object.keys(TILE_RULES).length;
+    for (const { tile } of this.forEachTile()) {
+      if (tile.entropy > 0 && tile.entropy < minimum) minimum = tile.entropy;
+    }
+    return minimum;
+  }
+
   getTilesWithMinimumEntropy(): Tile[] {
     const tileList: Tile[] = [];
     let minimum = Object.keys(TILE_RULES).length;
